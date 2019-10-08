@@ -27,7 +27,6 @@ textarea {
 
 .counter {
   font-family: 'Bungee', sans-serif;
-
 }
 
 input {
@@ -35,4 +34,8 @@ input {
   color: #FFFFFF;
 
   font-family: 'Bungee', sans-serif;
+}
+
+.negative {
+  color: red;
 }
