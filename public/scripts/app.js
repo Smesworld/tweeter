@@ -99,3 +99,27 @@ const renderTweets = function(tweets) {
 }
 
 renderTweets(data);
+
+
+
+
+
+
+
+$('#post-tweet').submit( (event) => {
+  event.preventDefault();
+  const data = $('form').serialize();
+  $.ajax({
+    type: "POST",
+    url: "/tweets",
+    data: data,
+    success: () => {console.log("did a thing")}
+  }).then(console.log("uhhhh"))
+  .fail((error) => {
+    console.log("noooooo");
+  })
+
+});
+
+
+
