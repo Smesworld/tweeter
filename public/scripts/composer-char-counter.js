@@ -1,12 +1,14 @@
 $(document).ready(function() {
   $("[name='text']").keyup(function() {
+    const maxTweetLength = 140;
     const inputLength = $(this).val().length; // Get number of chars in input
     const $span = $(this).siblings("span")[0]; // Get span sibling
-    const charsLeft = 140 - inputLength;
+    const charsLeft = maxTweetLength - inputLength;
+    $($span).text(charsLeft)
     if (charsLeft < 0) {
-      $($span).text(charsLeft).addClass("negative");
+      $($span).addClass("negative");
     } else {
-      $($span).text(charsLeft).removeClass("negative");
+      $($span).removeClass("negative");
     }
   });
 });

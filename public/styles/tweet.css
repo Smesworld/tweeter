@@ -1,0 +1,64 @@
+article {
+  box-sizing: border-box;
+
+  border-style: solid;
+  height: 170px;
+  margin-top: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+article:hover {
+  box-shadow: 6px 6px;
+}
+
+article.tweet > header {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  background-color: #f4f1ec;
+
+}
+
+article header img {
+  width: 30px;
+  bottom: 0px;
+}
+
+article > header > span {
+  margin-right: auto;
+}
+
+article > header > a {
+  display: none;
+}
+
+article:hover header > a {
+  display: block;
+}
+
+
+article > span {
+  width: 100%;
+  margin-top: auto;
+  border-bottom-width: 5px;
+  border-bottom-style: solid;
+}
+
+article.tweet footer {
+  width: 100%;
+  height: 30px;
+  font-size: 0.75em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #f4f1ec;
+  align-items: flex-end;
+}
