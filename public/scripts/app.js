@@ -113,6 +113,15 @@ $(document).ready( () => {
 
   }();
 
+  const loadTweet = function() {
+    $.ajax("/tweets")
+    .then((tweets) => {
+      renderTweets([tweets[tweets.length - 1]]);
+    })
+    .fail((error) => {
+      console.log("ABORT! ALL IS FIRE!!", error);
+    });
+  };
 
   // Submit tweets
   $('#post-tweet').submit( function(event) {
@@ -130,8 +139,10 @@ $(document).ready( () => {
         type: "POST",
         url: "/tweets",
         data: data,
-        success: () => {console.log("Win")}
-      }).then(() => {})
+        success: () => {loadTweet()}
+      }).then(() => {
+        $(this)[0].reset();    
+      })
       .fail((error) => {
         console.log("noooooo", error);
       })
