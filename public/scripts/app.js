@@ -62,7 +62,6 @@ const timeSinceDate = function(date) {
   }
 }
 
-
 const createTweetElement = function(tweetObject) {
   const name = tweetObject.user.name;
   const imgLocation = tweetObject.user.avatars;
@@ -73,8 +72,6 @@ const createTweetElement = function(tweetObject) {
   const $tweet = $("<article>").addClass("tweet");
 
   const timeSince = timeSinceDate(date);
-
-  console.log(timeSince);
 
   const markup = `
     <header>

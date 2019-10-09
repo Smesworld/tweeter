@@ -10,16 +10,11 @@ body > header {
   justify-content: center;
 }
 
-img {
-  /* position: relative;
-  bottom: -57px; */
+body > header img {
+  margin: 25px;
   align-self: center;
 }
 
 h2 {
   margin: 0;
-  /* position: relative; */
-  /* bottom: -10px; */
-  /* align-self: flex-end; */
-  margin-top: auto;
 }
