@@ -103,44 +103,38 @@ $(document).ready( () => {
 
   // Get tweets
   const loadTweets = function() {
-    const $tweets = $.ajax("/tweets")
+    $.ajax("/tweets")
     .then((tweets) => {
-      console.log(tweets);
       renderTweets(tweets);
     })
     .fail((error) => {
-      console.log("ABORT! ALL IS FIRE!!")
+      console.log("ABORT! ALL IS FIRE!!", error);
     });
-    console.log($tweets);
 
   }();
 
 
   // Submit tweets
-  $('#post-tweet').submit( (event) => {
+  $('#post-tweet').submit( function(event) {
     event.preventDefault();
-    const data = $('form').serialize();
-    $.ajax({
-      type: "POST",
-      url: "/tweets",
-      data: data,
-      success: () => {console.log("did a thing")}
-    }).then(console.log("uhhhh"))
-    .fail((error) => {
-      console.log("noooooo");
-    })
-
-  });
-});
-
-$(function() {
-  const $button = $('#load-more-posts');
-  $button.on('click', function () {
-    console.log('Button clicked, performing ajax call...');
-    $.ajax('more-posts.html', { method: 'GET' })
-    .then(function (morePostsHtml) {
-      console.log('Success: ', morePostsHtml);
-      $button.replaceWith(morePostsHtml);
-    });
+    // console.log($(this).val());
+    const data = $(this).serialize();
+    if (data.length <= 5) {
+      // console.log("put a thing in silly")
+      alert("Ya din say nufin");
+    } else if (data.length > 145) {
+      // console.log('Shit son, say less!');
+      alert(`Oi! Say less =\\ ${data.length}`);
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "/tweets",
+        data: data,
+        success: () => {console.log("Win")}
+      }).then(() => {})
+      .fail((error) => {
+        console.log("noooooo", error);
+      })
+    }
   });
 });
