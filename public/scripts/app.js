@@ -3,6 +3,65 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+const data = [
+    {
+      "user": {
+        "name": "Newton",
+        "avatars": "https://i.imgur.com/73hZDYK.png"
+        ,
+        "handle": "@SirIsaac"
+      },
+      "content": {
+        "text": "If I have seen further it is by standing on the shoulders of giants"
+      },
+      "created_at": 1461116232227
+    },
+    {
+      "user": {
+        "name": "Descartes",
+        "avatars": "https://i.imgur.com/nlhLi3I.png",
+        "handle": "@rd" },
+      "content": {
+        "text": "Je pense , donc je suis"
+      },
+      "created_at": 1570585909000
+    },
+    {
+      "user": {
+        "name": "Descartes",
+        "avatars": "https://i.imgur.com/nlhLi3I.png",
+        "handle": "@rd" },
+      "content": {
+        "text": "Je pense , donc je suis"
+      },
+      "created_at": 1570590855000
+    }
+]
+
+const timeSinceDate = function(date) {
+  const min = 1000 * 60;
+  const hour = min * 60;
+  const day = hour * 24;
+  const month = day * 30;
+  const year = day * 365;
+  const currentDate = new Date();
+  const diffDate = currentDate - date;
+
+  if (diffDate / min < 1) {
+    return `< min`;
+  } else if (diffDate / hour < 1) {
+    return `${Math.round(diffDate / min)} min(s)`;
+  } else if (diffDate / day < 1) {
+    return `${Math.round(diffDate / hour)} hour(s)`;
+  } else if (diffDate / month < 1) {
+    return `${Math.round(diffDate / day)} day(s)`;
+  } else if (diffDate / year < 1) {
+    return `${Math.round(diffDate / month)} month(s)`;
+  } else {
+    return `${Math.round(diffDate / year)} year(s)`;
+  }
+}
+
 
 const createTweetElement = function(tweetObject) {
   const name = tweetObject.user.name;
@@ -13,7 +72,9 @@ const createTweetElement = function(tweetObject) {
 
   const $tweet = $("<article>").addClass("tweet");
 
-  const 
+  const timeSince = timeSinceDate(date);
+
+  console.log(timeSince);
 
   const markup = `
     <header>
@@ -23,9 +84,21 @@ const createTweetElement = function(tweetObject) {
     </header>
     <span>${content}</span>
     <footer>
-      <span>Date</span>
+      <span>${timeSince}</span>
       <span>Like</span>
     </footer>
   `;
 
+  $($tweet).append(markup);
+
+  return $tweet;
 }
+
+const renderTweets = function(tweets) {
+  for (tweet of tweets) {
+    const $tweet = createTweetElement(tweet);
+    $('#tweets-container').append($tweet);
+  }
+}
+
+renderTweets(data);

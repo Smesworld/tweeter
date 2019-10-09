@@ -1,7 +1,7 @@
 nav {
   position: fixed;
   top: 0;
-  z-index: 5;
+  z-index: 5000;
   background: #4056A1;
   color: #FFFFFF;
   display: flex;
@@ -11,9 +11,6 @@ nav {
   width: 100%;
   padding: 1.5em;
 }
-
-
-
 
 nav > span {
   font-family: 'Bungee', sans-serif;

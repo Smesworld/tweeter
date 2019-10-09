@@ -37,11 +37,11 @@ article > header > span {
 }
 
 article > header > a {
-  display: none;
+  visibility: hidden;
 }
 
 article:hover header > a {
-  display: block;
+  visibility: visible;
 }
 
 
