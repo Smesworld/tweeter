@@ -38,6 +38,12 @@ const data = [
     }
 ]
 
+const escape =  function(str) {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 const timeSinceDate = function(date) {
   const min = 1000 * 60;
   const hour = min * 60;
@@ -79,7 +85,7 @@ const createTweetElement = function(tweetObject) {
       <span>${name}</span>
       <a>${handle}</a>
     </header>
-    <span>${content}</span>
+    <span>${escape(content)}</span>
     <footer>
       <span>${timeSince}</span>
       <span>Like</span>
@@ -141,7 +147,8 @@ $(document).ready( () => {
         data: data,
         success: () => {loadTweet()}
       }).then(() => {
-        $(this)[0].reset();    
+        $(this)[0].reset(); // Reset form
+        $($(this).children()[2]).text(140); // Reset chars to 140
       })
       .fail((error) => {
         console.log("noooooo", error);
