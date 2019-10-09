@@ -91,35 +91,56 @@ const createTweetElement = function(tweetObject) {
   return $tweet;
 }
 
-const renderTweets = function(tweets) {
-  for (tweet of tweets) {
-    const $tweet = createTweetElement(tweet);
-    $('#tweets-container').append($tweet);
+$(document).ready( () => {
+  const renderTweets = function(tweets) {
+    for (tweet of tweets) {
+      const $tweet = createTweetElement(tweet);
+      $('#tweets-container').prepend($tweet);
+    }
   }
-}
 
-renderTweets(data);
+  // renderTweets(data);
+
+  // Get tweets
+  const loadTweets = function() {
+    const $tweets = $.ajax("/tweets")
+    .then((tweets) => {
+      console.log(tweets);
+      renderTweets(tweets);
+    })
+    .fail((error) => {
+      console.log("ABORT! ALL IS FIRE!!")
+    });
+    console.log($tweets);
+
+  }();
 
 
+  // Submit tweets
+  $('#post-tweet').submit( (event) => {
+    event.preventDefault();
+    const data = $('form').serialize();
+    $.ajax({
+      type: "POST",
+      url: "/tweets",
+      data: data,
+      success: () => {console.log("did a thing")}
+    }).then(console.log("uhhhh"))
+    .fail((error) => {
+      console.log("noooooo");
+    })
 
-
-
-
-
-$('#post-tweet').submit( (event) => {
-  event.preventDefault();
-  const data = $('form').serialize();
-  $.ajax({
-    type: "POST",
-    url: "/tweets",
-    data: data,
-    success: () => {console.log("did a thing")}
-  }).then(console.log("uhhhh"))
-  .fail((error) => {
-    console.log("noooooo");
-  })
-
+  });
 });
 
-
-
+$(function() {
+  const $button = $('#load-more-posts');
+  $button.on('click', function () {
+    console.log('Button clicked, performing ajax call...');
+    $.ajax('more-posts.html', { method: 'GET' })
+    .then(function (morePostsHtml) {
+      console.log('Success: ', morePostsHtml);
+      $button.replaceWith(morePostsHtml);
+    });
+  });
+});
