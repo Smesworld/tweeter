@@ -14,10 +14,24 @@ const onKeyUp = function() {
 $(document).ready( () => {
   $("[name='text']").keyup(onKeyUp);
 
+  // Reveal and hide new tweet bar
+  $('#compose').click(function() {
+    if ($('.new-tweet').is(":hidden")) {
+      $('.new-tweet').slideDown("slow");
+      $("[name='text']").focus();
+
+    } else {
+      $('.new-tweet').slideUp("slow");
+      removeError();
+    }
+  });
+
+  // Reveal and hide scroll button
   $( window ).scroll(function() {
     if ($(this).scrollTop() >= 200) {
       $(".scrollButton").show();
       $("#compose").hide();
+      removeError();
       $('.new-tweet').slideUp("slow");
     } else {
       $(".scrollButton").hide();
@@ -25,6 +39,7 @@ $(document).ready( () => {
     }
   })
 
+  // Scroll to top and activate compose area
   $(".scrollButton").click(function() {
     $("html, body").animate({ scrollTop: 0}, "slow", "swing", function() {
       $('.new-tweet').slideDown("slow");
@@ -32,4 +47,5 @@ $(document).ready( () => {
       $(".scrollButton").hide();
     });
   })
+
 });

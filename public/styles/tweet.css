@@ -40,6 +40,7 @@ article > header > span {
 
 article > header > a {
   visibility: hidden;
+  opacity: 0.4;
 }
 
 article:hover header > a {
@@ -60,7 +61,23 @@ article.tweet footer {
   font-size: 0.75em;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   background-color: #f4f1ec;
   align-items: flex-end;
+}
+
+article.tweet > footer span {
+  margin-right: auto;
+}
+
+article.tweet > footer img {
+  visibility: hidden;
+  cursor: pointer;
+  opacity: 0.4;
+  width: 16px;
+  margin-right: 7px;
+}
+
+article:hover footer > img {
+  visibility: visible;
 }

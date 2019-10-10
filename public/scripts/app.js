@@ -46,7 +46,9 @@ const createTweetElement = function(tweetObject) {
     <span>${escape(tweetObject.content.text)}</span>
     <footer>
       <span>${timeSinceDate(tweetObject.created_at)}</span>
-      <span>Like</span>
+      <img src="/images/flag-pole.svg">
+      <img src="/images/retweet-arrows.svg">
+      <img src="/images/like.svg">
     </footer>
   `;
 
@@ -92,47 +94,36 @@ $(document).ready(() => {
   // Render all current tweets
   loadTweets();
 
-  // Submit tweets
-  $('#post-tweet').submit(function(event) {
-    event.preventDefault();
-    removeError();
-
-    const $children = $(this).children();
-    const inputLength = $($children[0]).val().length;
-    const data = $($children[0]).serialize();
-
-    if (inputLength <= 0) {
-      renderError("Please enter a tweet.");
-    } else if (inputLength > 140) {
-      renderError("Please shorten the tweet.");
-    } else {
-      $.ajax({
-        type: "POST",
-        url: "/tweets",
-        data: data,
-        success: () => {
-          loadTweets(true); // Render added tweet
-        }
-      })
-        .then(() => {
-          $(this)[0].reset(); // Reset form
-          $($children[2]).text(140); // Reset char counter to 140
+    // Submit tweets
+    $('#post-tweet').submit(function(event) {
+      event.preventDefault();
+      removeError();
+  
+      const $children = $(this).children();
+      const inputLength = $($children[0]).val().length;
+      const data = $($children[0]).serialize();
+  
+      if (inputLength <= 0) {
+        renderError("Please enter a tweet.");
+      } else if (inputLength > 140) {
+        renderError("Please shorten the tweet.");
+      } else {
+        $.ajax({
+          type: "POST",
+          url: "/tweets",
+          data: data,
+          success: () => {
+            loadTweets(true); // Render added tweet
+          }
         })
-        .fail((error) => {
-          renderError(error.responseJSON.error);
-        });
-    }
-  });
-
-  // Reveal and hide new tweet bar
-  $('#compose').click(function() {
-    if ($('.new-tweet').is(":hidden")) {
-      $('.new-tweet').slideDown("slow");
-      $("[name='text']").focus();
-
-    } else {
-      $('.new-tweet').slideUp("slow");
-    }
-  });
+          .then(() => {
+            $(this)[0].reset(); // Reset form
+            $($children[2]).text(140); // Reset char counter to 140
+          })
+          .fail((error) => {
+            renderError(error.responseJSON.error);
+          });
+      }
+    });
 
 });

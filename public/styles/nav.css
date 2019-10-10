@@ -34,14 +34,7 @@ nav > div {
   align-items: center; 
 }
 
-nav > div span {
-  /* display: none; */
-  /* position: relative;
-  transition: top ease 0.5s; */
-}
-
 nav > div a:hover {
-  /* top: 15px; */
   position: relative;
   top: 0;
   cursor: pointer;
