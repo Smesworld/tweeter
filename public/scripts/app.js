@@ -105,9 +105,7 @@ $(document).ready( () => {
     }
   }
 
-  // renderTweets(data);
-
-  // Get tweets
+  // Get all tweets
   const loadTweets = function() {
     $.ajax("/tweets")
     .then((tweets) => {
@@ -119,7 +117,8 @@ $(document).ready( () => {
 
   }();
 
-  const loadTweet = function() {
+  // Get the last tweet
+  const lastTweet = function() {
     $.ajax("/tweets")
     .then((tweets) => {
       renderTweets([tweets[tweets.length - 1]]);
@@ -132,20 +131,17 @@ $(document).ready( () => {
   // Submit tweets
   $('#post-tweet').submit( function(event) {
     event.preventDefault();
-    // console.log($(this).val());
     const data = $(this).serialize();
     if (data.length <= 5) {
-      // console.log("put a thing in silly")
       alert("Ya din say nufin");
     } else if (data.length > 145) {
-      // console.log('Shit son, say less!');
       alert(`Oi! Say less =\\ ${data.length}`);
     } else {
       $.ajax({
         type: "POST",
         url: "/tweets",
         data: data,
-        success: () => {loadTweet()}
+        success: () => {lastTweet()}
       }).then(() => {
         $(this)[0].reset(); // Reset form
         $($(this).children()[2]).text(140); // Reset chars to 140
@@ -155,4 +151,19 @@ $(document).ready( () => {
       })
     }
   });
+
+  $('#compose').click( function(event) {
+    console.log("Clickd");
+    if ($('.new-tweet').is(":hidden")) {
+      $('.new-tweet').slideDown("slow");
+    } else {
+      $('.new-tweet').slideUp("slow");
+    }
+  })
+
+
+
+
+
+
 });

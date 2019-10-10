@@ -1,3 +1,13 @@
+@keyframes changeHeight {
+  0%, 100% {
+    top: 0px;
+  }
+
+  50% {
+    top: 10px;
+  }
+}
+
 nav {
   position: fixed;
   top: 0;
@@ -14,4 +24,27 @@ nav {
 
 nav > span {
   font-family: 'Bungee', sans-serif;
+}
+
+nav > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav > div a {
+  
+  /* position: relative;
+  transition: top ease 0.5s; */
+}
+
+nav > div a:hover {
+  /* top: 15px; */
+  position: relative;
+  top: 0;
+  cursor: pointer;
+  animation-duration: 1s;
+  animation-name: changeHeight;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }

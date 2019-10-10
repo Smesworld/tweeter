@@ -17,6 +17,7 @@ textarea {
 }
 
 .new-tweet {
+  display: none;
   font-family: 'Source Sans Pro', sans-serif;
   width: 100%;
 }
