@@ -1,0 +1,42 @@
+
+@media only screen and (max-width: 420px) {
+  body {
+    margin-top: 0;
+  }
+
+  nav {
+    position: static;
+  }
+
+  nav > div span {
+    display: none;
+  }
+
+  .scrollButton {
+    font-size: 60%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  body > header {
+    height: 400px;
+    width: 100%;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  main {
+    margin-right: 30px;
+    min-width: 400px;
+    flex-grow: 3;
+    flex-shrink: 1;
+  }
+
+  .scrollButton {
+    font-size: 60%;
+  }
+
+}

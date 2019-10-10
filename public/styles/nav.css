@@ -31,12 +31,11 @@ nav > span {
 nav > div {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  
+  align-items: center; 
 }
 
-nav > div a {
-
+nav > div span {
+  /* display: none; */
   /* position: relative;
   transition: top ease 0.5s; */
 }

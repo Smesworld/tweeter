@@ -28,6 +28,7 @@ $(document).ready( () => {
   $(".scrollButton").click(function() {
     $("html, body").animate({ scrollTop: 0}, "slow", "swing", function() {
       $('.new-tweet').slideDown("slow");
+      $("[name='text']").focus();
       $(".scrollButton").hide();
     });
   })

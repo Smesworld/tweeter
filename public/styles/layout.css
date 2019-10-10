@@ -21,6 +21,8 @@ body {
   font-size: 24px;
   box-sizing: border-box;
   margin-top: 120px;
+  display: flex;
+  flex-direction: row;
 }
 
 /*
@@ -29,7 +31,8 @@ body {
 
 main {
   width: 90%;
-  margin: 0 auto;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
 }
 
 main > div {

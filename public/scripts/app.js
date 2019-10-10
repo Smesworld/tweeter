@@ -3,40 +3,6 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-const data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png"
-        ,
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd" },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1570585909000
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd" },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1570590855000
-    }
-]
 
 const escape =  function(str) {
   let div = document.createElement('div');
@@ -66,26 +32,20 @@ const timeSinceDate = function(date) {
   } else {
     return `${Math.round(diffDate / year)} year(s)`;
   }
-}
+};
 
 const createTweetElement = function(tweetObject) {
-  const name = tweetObject.user.name;
-  const imgLocation = tweetObject.user.avatars;
-  const handle = tweetObject.user.handle;
-  const content = tweetObject.content.text;
-  const date = tweetObject.created_at;
-
   const $tweet = $("<article>").addClass("tweet");
 
   const markup = `
     <header>
-      <img src=${imgLocation}>
-      <span>${name}</span>
-      <a>${handle}</a>
+      <img src=${tweetObject.user.avatars}>
+      <span>${tweetObject.user.name}</span>
+      <a>${tweetObject.user.handle}</a>
     </header>
-    <span>${escape(content)}</span>
+    <span>${escape(tweetObject.content.text)}</span>
     <footer>
-      <span>${timeSinceDate(date)}</span>
+      <span>${timeSinceDate(tweetObject.created_at)}</span>
       <span>Like</span>
     </footer>
   `;
@@ -93,79 +53,86 @@ const createTweetElement = function(tweetObject) {
   $($tweet).append(markup);
 
   return $tweet;
-}
+};
 
-$(document).ready( () => {
-  const renderTweets = function(tweets) {
-    for (tweet of tweets) {
-      const $tweet = createTweetElement(tweet);
-      $('#tweets-container').prepend($tweet);
-    }
+const renderTweets = function(tweets) {
+  for (const tweet of tweets) {
+    const $tweet = createTweetElement(tweet);
+    $('#tweets-container').prepend($tweet);
   }
+};
 
-  // Get all tweets
-  const loadTweets = function() {
-    $.ajax("/tweets")
+// Get all tweets
+const loadTweets = function(lastTweet = false) {
+  $.ajax("/tweets")
     .then((tweets) => {
-      renderTweets(tweets);
+      if (lastTweet) {
+        renderTweets([tweets[tweets.length - 1]]);
+      } else {
+        renderTweets(tweets);
+      }
     })
     .fail((error) => {
-      console.log("ABORT! ALL IS FIRE!!", error);
+      renderError(error.responseJSON.error);
     });
 
-  }();
+};
 
-  // Get the last tweet
-  const lastTweet = function() {
-    $.ajax("/tweets")
-    .then((tweets) => {
-      renderTweets([tweets[tweets.length - 1]]);
-    })
-    .fail((error) => {
-      console.log("ABORT! ALL IS FIRE!!", error);
-    });
-  };
+// Display error message
+const renderError = function(message) {
+  $('.error').text(message).slideDown("slow");
+};
+
+// Hide and remove error message
+const removeError = function() {
+  $('.error').text("").slideUp(1);
+};
+
+$(document).ready(() => {
+  // Render all current tweets
+  loadTweets();
 
   // Submit tweets
-  $('#post-tweet').submit( function(event) {
+  $('#post-tweet').submit(function(event) {
     event.preventDefault();
     removeError();
+
     const $children = $(this).children();
-    const input = $($children[0]).val();
+    const inputLength = $($children[0]).val().length;
     const data = $($children[0]).serialize();
-    if (input.length <= 0) {
+
+    if (inputLength <= 0) {
       renderError("Please enter a tweet.");
-    } else if (input.length > 140) {
+    } else if (inputLength > 140) {
       renderError("Please shorten the tweet.");
     } else {
       $.ajax({
         type: "POST",
         url: "/tweets",
         data: data,
-        success: () => {lastTweet()}
-      }).then(() => {
-        $(this)[0].reset(); // Reset form
-        $($children[2]).text(140); // Reset chars to 140
+        success: () => {
+          loadTweets(true); // Render added tweet
+        }
       })
-      .fail((error) => {
-        console.log("noooooo", error.responseJSON.error, error);
-      })
+        .then(() => {
+          $(this)[0].reset(); // Reset form
+          $($children[2]).text(140); // Reset char counter to 140
+        })
+        .fail((error) => {
+          renderError(error.responseJSON.error);
+        });
     }
   });
 
-  $('#compose').click( function(event) {
+  // Reveal and hide new tweet bar
+  $('#compose').click(function() {
     if ($('.new-tweet').is(":hidden")) {
       $('.new-tweet').slideDown("slow");
+      $("[name='text']").focus();
+
     } else {
       $('.new-tweet').slideUp("slow");
     }
-  })
+  });
 
-  const renderError = function(message) {
-    $('.error').text(message).slideDown("slow");
-  };
-
-  const removeError = function() {
-    $('.error').slideUp(1);
-  }
 });
