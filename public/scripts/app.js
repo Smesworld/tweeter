@@ -77,8 +77,6 @@ const createTweetElement = function(tweetObject) {
 
   const $tweet = $("<article>").addClass("tweet");
 
-  const timeSince = timeSinceDate(date);
-
   const markup = `
     <header>
       <img src=${imgLocation}>
@@ -87,7 +85,7 @@ const createTweetElement = function(tweetObject) {
     </header>
     <span>${escape(content)}</span>
     <footer>
-      <span>${timeSince}</span>
+      <span>${timeSinceDate(date)}</span>
       <span>Like</span>
     </footer>
   `;
@@ -131,11 +129,14 @@ $(document).ready( () => {
   // Submit tweets
   $('#post-tweet').submit( function(event) {
     event.preventDefault();
-    const data = $(this).serialize();
-    if (data.length <= 5) {
-      alert("Ya din say nufin");
-    } else if (data.length > 145) {
-      alert(`Oi! Say less =\\ ${data.length}`);
+    removeError();
+    const $children = $(this).children();
+    const input = $($children[0]).val();
+    const data = $($children[0]).serialize();
+    if (input.length <= 0) {
+      renderError("Please enter a tweet.");
+    } else if (input.length > 140) {
+      renderError("Please shorten the tweet.");
     } else {
       $.ajax({
         type: "POST",
@@ -144,16 +145,15 @@ $(document).ready( () => {
         success: () => {lastTweet()}
       }).then(() => {
         $(this)[0].reset(); // Reset form
-        $($(this).children()[2]).text(140); // Reset chars to 140
+        $($children[2]).text(140); // Reset chars to 140
       })
       .fail((error) => {
-        console.log("noooooo", error);
+        console.log("noooooo", error.responseJSON.error, error);
       })
     }
   });
 
   $('#compose').click( function(event) {
-    console.log("Clickd");
     if ($('.new-tweet').is(":hidden")) {
       $('.new-tweet').slideDown("slow");
     } else {
@@ -161,9 +161,11 @@ $(document).ready( () => {
     }
   })
 
+  const renderError = function(message) {
+    $('.error').text(message).slideDown("slow");
+  };
 
-
-
-
-
+  const removeError = function() {
+    $('.error').slideUp(1);
+  }
 });
