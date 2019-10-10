@@ -13,4 +13,22 @@ const onKeyUp = function() {
 
 $(document).ready( () => {
   $("[name='text']").keyup(onKeyUp);
+
+  $( window ).scroll(function() {
+    if ($(this).scrollTop() >= 200) {
+      $(".scrollButton").show();
+      $("#compose").hide();
+      $('.new-tweet').slideUp("slow");
+    } else {
+      $(".scrollButton").hide();
+      $("#compose").show();
+    }
+  })
+
+  $(".scrollButton").click(function() {
+    $("html, body").animate({ scrollTop: 0}, "slow", "swing", function() {
+      $('.new-tweet').slideDown("slow");
+      $(".scrollButton").hide();
+    });
+  })
 });
