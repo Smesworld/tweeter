@@ -80,7 +80,7 @@ $(document).ready(() => {
   
       const maxTweetLength = 140;
       const $children = $(this).children();
-      const inputLength = $($children[0]).val().length;
+      const inputLength = $($children[0]).val().trim().length;
       const serializedInput = $($children[0]).serialize();
   
       if (inputLength <= 0) {

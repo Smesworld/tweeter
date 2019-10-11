@@ -1,6 +1,9 @@
 # Tweeter Project
 
-Tweeter is a simple Twitter clone that uses AJAX, jQuery, HTML5, and CSS to produce a single-page site. It is meant as a demonstration of front end skills rather than a fully-functional twiter clone. That said it allows posting of new tweets, displaying said tweets  and basic page navigation complete with a return to top button! The page has basic error handeling to prevent empty/whitespace tweets, tweets that are too long, and provides basic protection from cross-site scripting.
+Tweeter is a simple Twitter clone that uses AJAX, jQuery, HTML5, and CSS to produce a single-page site. It is meant as a demonstration of front end skills rather than a fully-functional twiter clone. That said it allows posting of new tweets, displaying said tweets  and basic page navigation complete with a return to top button! The page has basic error handeling to prevent empty tweets, tweets that are too long, and provides basic protection from cross-site scripting.
+
+## Final Product
+
 
 ## Getting Started
 
