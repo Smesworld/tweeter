@@ -1,12 +1,13 @@
+@import './variables';
+
 /*
  * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
  * https://css-tricks.com/international-box-sizing-awareness-day/
  * Do not modify these two selectors, please
  */
-html {
+ html {
   box-sizing: border-box;
 }
-
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -14,10 +15,11 @@ html {
 /*
  * Global layout stuff
  */
+
 body {
-  color: #545149;
-  background-color: #f4f1ec;
-  font-family: "Source Sans Pro", sans-serif;
+  color: $primary-color;
+  background-color: $background-color;
+  font-family: $sans-stack;
   font-size: 24px;
   box-sizing: border-box;
   margin-top: 120px;
@@ -28,26 +30,29 @@ body {
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
 main {
   margin-right: 30px;
   min-width: 300px;
   max-width: 600px;
   flex-grow: 3;
   flex-shrink: 1;
-}
-main div {
-  display: none;
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-  z-index: 4000;
-  cursor: pointer;
-}
-main div h1 {
-  margin: 0;
-}
-main span {
-  font-size: 80%;
+
+  div {
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    z-index: 4000;
+    cursor: pointer;
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  span {
+    font-size: 80%;
+  }
 }
 
-/*# sourceMappingURL=layout.css.map */

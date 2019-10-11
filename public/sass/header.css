@@ -1,4 +1,4 @@
-body header {
+body > header {
   box-sizing: border-box;
   width: 20%;
   height: 400px;
@@ -14,14 +14,14 @@ body header {
   align-items: center;
   justify-content: center;
 }
-body header img {
+
+body > header img {
   margin: 25px;
   align-self: center;
   display: flex;
   flex-shrink: 2;
 }
-body h2 {
+
+h2 {
   margin: 0;
 }
-
-/*# sourceMappingURL=header.css.map */

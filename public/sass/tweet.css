@@ -1,5 +1,6 @@
 article {
   box-sizing: border-box;
+
   border-style: solid;
   min-height: 170px;
   margin-top: 30px;
@@ -11,10 +12,12 @@ article {
   justify-content: space-between;
   align-items: center;
 }
+
 article:hover {
   box-shadow: 6px 6px;
 }
-article header {
+
+article.tweet > header {
   width: 100%;
   height: 30px;
   margin-bottom: 20px;
@@ -23,25 +26,36 @@ article header {
   justify-content: space-between;
   position: relative;
   background-color: #f4f1ec;
+
 }
+
 article header img {
   width: 30px;
   bottom: 0px;
 }
-article header span {
+
+article > header > span {
   margin-right: auto;
 }
-article header a {
+
+article > header > a {
   visibility: hidden;
   opacity: 0.4;
 }
-article span {
+
+article:hover header > a {
+  visibility: visible;
+}
+
+
+article > span {
   width: 100%;
   margin-top: auto;
   border-bottom-width: 5px;
   border-bottom-style: solid;
 }
-article footer {
+
+article.tweet footer {
   width: 100%;
   height: 30px;
   font-size: 0.75em;
@@ -51,10 +65,12 @@ article footer {
   background-color: #f4f1ec;
   align-items: flex-end;
 }
-article footer span {
+
+article.tweet > footer span {
   margin-right: auto;
 }
-article footer img {
+
+article.tweet > footer img {
   visibility: hidden;
   cursor: pointer;
   opacity: 0.4;
@@ -62,12 +78,6 @@ article footer img {
   margin-right: 7px;
 }
 
-article:hover header > a {
-  visibility: visible;
-}
-
 article:hover footer > img {
   visibility: visible;
 }
-
-/*# sourceMappingURL=tweet.css.map */

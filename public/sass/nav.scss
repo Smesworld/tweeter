@@ -1,0 +1,47 @@
+@import './variables';
+
+@keyframes changeHeight {
+  0% {
+    top: 0px;
+    transition: top;
+  }
+
+  100% {
+    top: 6px;
+    transition: top;
+  }
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 5000;
+  background: #4056A1;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 120px;
+  width: 100%;
+  padding: 1.5em;
+
+  span {
+    font-family: $bungee-stack;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+
+    a:hover {
+      position: relative;
+      top: 0;
+      cursor: pointer;
+      animation-duration: 0.3s;
+      animation-name: changeHeight;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+  }
+}

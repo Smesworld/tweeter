@@ -1,0 +1,84 @@
+@import './variables';
+
+article {
+  box-sizing: border-box;
+
+  border-style: solid;
+  min-height: 170px;
+  margin-top: 30px;
+  padding: 15px;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    box-shadow: 6px 6px;
+
+  }
+
+  header {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    background-color: $background-color;
+
+    img {
+      width: 30px;
+      bottom: 0px;
+    }
+
+    span {
+      margin-right: auto;
+    }
+
+    a {
+      visibility: hidden;
+      opacity: 0.4;
+    }
+  }
+
+  span {
+    width: 100%;
+    margin-top: auto;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+  }
+
+  footer {
+    width: 100%;
+    height: 30px;
+    font-size: 0.75em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: $background-color;
+    align-items: flex-end;
+
+    span {
+      margin-right: auto;
+    }
+
+    img {
+      visibility: hidden;
+      cursor: pointer;
+      opacity: 0.4;
+      width: 16px;
+      margin-right: 7px;
+    }
+  }
+}
+
+article:hover header > a {
+  visibility: visible;
+} 
+
+article:hover footer > img {
+  visibility: visible;
+}
