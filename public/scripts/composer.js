@@ -1,3 +1,4 @@
+// Maintain counter for characters remaining for tweet
 const onKeyUp = function() {
   const maxTweetLength = 140;
   const inputLength = $(this).val().length; // Get number of chars in input
@@ -14,7 +15,7 @@ const onKeyUp = function() {
 $(document).ready( () => {
   $("[name='text']").keyup(onKeyUp);
 
-  // Reveal and hide new tweet bar
+  // Reveal and hide compose area
   $('#compose').click(function() {
     if ($('.new-tweet').is(":hidden")) {
       $('.new-tweet').slideDown("slow");
@@ -43,7 +44,7 @@ $(document).ready( () => {
   $(".scrollButton").click(function() {
     $("html, body").animate({ scrollTop: 0}, "slow", "swing", function() {
       $('.new-tweet').slideDown("slow");
-      $("[name='text']").focus();
+      $("[name='text']").focus(); // Focus text area
       $(".scrollButton").hide();
     });
   })

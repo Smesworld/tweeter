@@ -4,36 +4,14 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+ // Format dangerous characters for rendering
 const escape =  function(str) {
   let div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
 
-const timeSinceDate = function(date) {
-  const min = 1000 * 60;
-  const hour = min * 60;
-  const day = hour * 24;
-  const month = day * 30;
-  const year = day * 365;
-  const currentDate = new Date();
-  const diffDate = currentDate - date;
-
-  if (diffDate / min < 1) {
-    return `< min`;
-  } else if (diffDate / hour < 1) {
-    return `${Math.round(diffDate / min)} min(s)`;
-  } else if (diffDate / day < 1) {
-    return `${Math.round(diffDate / hour)} hour(s)`;
-  } else if (diffDate / month < 1) {
-    return `${Math.round(diffDate / day)} day(s)`;
-  } else if (diffDate / year < 1) {
-    return `${Math.round(diffDate / month)} month(s)`;
-  } else {
-    return `${Math.round(diffDate / year)} year(s)`;
-  }
-};
-
+// Format tweets for rendering
 const createTweetElement = function(tweetObject) {
   const $tweet = $("<article>").addClass("tweet");
 
@@ -45,7 +23,7 @@ const createTweetElement = function(tweetObject) {
     </header>
     <span>${escape(tweetObject.content.text)}</span>
     <footer>
-      <span>${timeSinceDate(tweetObject.created_at)}</span>
+      <span>${moment(tweetObject.created_at).fromNow()}</span>
       <img src="/images/flag-pole.svg">
       <img src="/images/retweet-arrows.svg">
       <img src="/images/like.svg">
@@ -57,6 +35,7 @@ const createTweetElement = function(tweetObject) {
   return $tweet;
 };
 
+// Add tweets to page in reverse order of creation
 const renderTweets = function(tweets) {
   for (const tweet of tweets) {
     const $tweet = createTweetElement(tweet);
@@ -99,19 +78,20 @@ $(document).ready(() => {
       event.preventDefault();
       removeError();
   
+      const maxTweetLength = 140;
       const $children = $(this).children();
       const inputLength = $($children[0]).val().length;
-      const data = $($children[0]).serialize();
+      const serializedInput = $($children[0]).serialize();
   
       if (inputLength <= 0) {
         renderError("Please enter a tweet.");
-      } else if (inputLength > 140) {
+      } else if (inputLength > maxTweetLength) {
         renderError("Please shorten the tweet.");
       } else {
         $.ajax({
           type: "POST",
           url: "/tweets",
-          data: data,
+          data: serializedInput,
           success: () => {
             loadTweets(true); // Render added tweet
           }
@@ -125,5 +105,4 @@ $(document).ready(() => {
           });
       }
     });
-
 });
